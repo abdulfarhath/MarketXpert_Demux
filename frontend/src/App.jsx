@@ -7,9 +7,6 @@ function App() {
     <>
      <HomeRoute>
      </HomeRoute>
-      <p className='text-red-100'>
-        hello nigga
-      </p>
     </>
   )
 }

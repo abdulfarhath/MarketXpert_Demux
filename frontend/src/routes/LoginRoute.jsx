@@ -15,6 +15,12 @@ const LoginRoute = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Add your login logic here
+        console.log('Logging in with', email, password);
+    };
+
+    const handleSignUp = () => {
+        // Handle signup logic or navigate to the signup page
+        console.log('Navigating to SignUp');
     };
 
     return (
@@ -28,6 +34,7 @@ const LoginRoute = () => {
                 <input type="password" value={password} onChange={handlePasswordChange} />
 
                 <button type="submit">Login</button>
+                <button type="submit" >SignUp</button>
             </form>
         </div>
     );

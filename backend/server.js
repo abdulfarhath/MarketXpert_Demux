@@ -76,7 +76,7 @@ async function addAdminToFirestore(adminData, res) {
 
 
 // Express.js route to handle registration
-app.post('/user/signup', (req, res) => {
+app.post('/admin/signup', (req, res) => {
     console.log('Received request body:', req.body);
     // Ensure the request body is not empty before processing
     if (!req.body) {

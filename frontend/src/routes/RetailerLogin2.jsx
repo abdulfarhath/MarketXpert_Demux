@@ -6,7 +6,6 @@ export default function RetailerLogin2() {
     
     return (
         
-
         <div style={{ backgroundColor: '#0c0c0c' }} className="text-white min-h-screen flex flex-col items-center">
             <Navbar />
             

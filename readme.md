@@ -2,7 +2,7 @@
 
 Welcome to **MarketXpert** – a cutting-edge retail platform built to elevate small and medium-sized businesses into the digital world. With a sleek, easy-to-use interface, seamless transactions, and robust technical support, **MarketXpert** is the perfect solution to take retail operations to the next level.
 
-![MarketXpert Banner](https://yourimageurl.com/banner.png)
+![MarketXpert Banner](https://media.discordapp.net/attachments/1246278188884037765/1281367343687139328/Screenshot_2024-09-06_at_03.06.09.png?ex=66db75d5&is=66da2455&hm=95048bf6bfa1b59df41e1d1b209639a568aa6bc552125a34d4e7a9cea0ef4d44&=&format=webp&quality=lossless&width=1179&height=655)
 
 ---
 

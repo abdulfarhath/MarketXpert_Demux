@@ -34,7 +34,7 @@ export default function ChooseLogin() {
               </li>
             </ul>
             <button
-              onClick={() => navigate('/user/login')} // Use a function to call navigate
+              onClick={() => navigate('/admin/login')} // Use a function to call navigate
               className="mt-6 bg-teal-400 text-teal-900 font-bold py-2 px-4 rounded"
             >
               Register
@@ -65,7 +65,7 @@ export default function ChooseLogin() {
               </li>
             </ul>
             <button
-              onClick={() => navigate('/user/login')} // Use a function to call navigate
+              onClick={() => navigate('/user/dashboard')} // Use a function to call navigate
               className="mt-6 bg-teal-400 text-teal-900 font-bold py-2 px-4 rounded"
             >
               Login

@@ -1,6 +1,9 @@
 import React from 'react';
 
 const HomeRoute = () => {
+
+  
+
   const categories = [
     { name: 'Groceries', imageUrl: 'https://via.placeholder.com/200?text=Groceries' },
     { name: 'Clothing', imageUrl: 'https://via.placeholder.com/200?text=Clothing' },

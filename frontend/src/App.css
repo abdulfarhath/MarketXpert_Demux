@@ -1,0 +1,17 @@
+/* In app.css */
+h1,button {
+    font-family: 'Ubuntu', sans-serif;
+  }
+p{
+    font-family: 'Source Sans 3', sans-serif;
+}
+  
+  .text-green-color {
+    color: #00FF00; /* Example color */
+  }
+  
+  .bg-nav-bg-color {
+    background-color: #333; /* Example background color */
+  }
+  
+  

@@ -5,7 +5,11 @@ import HomeRoute from './routes/HomeRoute'
 function App() {
   return (
     <>
-     <HomeRoute></HomeRoute>
+     <HomeRoute>
+     </HomeRoute>
+      <p className='text-red-100'>
+        hello nigga
+      </p>
     </>
   )
 }

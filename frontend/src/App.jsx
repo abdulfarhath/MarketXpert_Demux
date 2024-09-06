@@ -15,6 +15,7 @@ import RetailDRoute from './routes/RetailDRoute'
 import RetailPRoute from './routes/RetailPRoute'
 import UserDashBoard from './routes/UserDashboard'
 import AdminLogin from './routes/AdminLogin'
+import FashionDashboard from './routes/FashionDashboard'
 function App() {
 
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/retailer/dashboard" element={<RetailDRoute/>} />
         <Route path="/retailer/products" element={<RetailPRoute/>} />
         <Route path="/user/dashboard" element={<UserDashBoard/>} />
+        <Route path="/user/categories/fashion" element={<FashionDashboard/>} />
       </Routes>
     </Router>
   )

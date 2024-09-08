@@ -3,6 +3,7 @@ require('dotenv').config();
 const admin = require('firebase-admin');
 const firebase = require('firebase-admin');
 const cors = require('cors');
+require('firebase/auth');
 
 // Initialize Firebase Admin SDK
 const serviceAccount = {
@@ -32,6 +33,7 @@ app.use(express.json());
 
 // Initialize Firebase Auth
 const firebaseAuth = firebase.auth();
+
 async function addAdminToFirestore(adminData, res) {
     try {
         // Validate adminData
@@ -41,36 +43,42 @@ async function addAdminToFirestore(adminData, res) {
             return;
         }
 
-        // Attempt to create a new user with email and password
-        let user;
-        try {
-            user = await firebaseAuth.createUser({
-                email: adminData.email,
-                password: adminData.password,
-            });
-        } catch (error) {
-            // Check if the error is due to email already being in use
-            if (error.code === 'auth/email-already-in-use') {
-                res.status(400).send({ message: 'Email already exists' });
-                return;
-            }
-            // Handle other potential errors
-            throw error;
-        }
+        // Create a new user with email and password
+        let user = await firebaseAuth.createUser({
+            email: adminData.email,
+            password: adminData.password
+        });
 
         // Add the admin to Firestore
         await admin.firestore().collection('admins').doc(user.uid).set({
-            email: adminData.email,
+            email: adminData.email
         });
+        await initializeUserSubcollections(user.uid);
 
         // Send success response
         res.status(200).send({ message: 'Admin data saved successfully', uid: user.uid });
     } catch (error) {
-        // Handle and log other errors
+        // Handle and log errors
         console.error('Error saving admin data:', error);
         res.status(500).send('Error saving admin data');
     }
 }
+
+// Signin function for admin
+
+
+
+async function loginUser(email, password) {
+    try {
+      const userCredential = await auth.signInWithEmailAndPassword(email, password);
+      const user = userCredential.user;
+  
+      // Handle the user information or send token to server
+      console.log('User signed in:', user);
+    } catch (error) {
+      console.error('Error signing in:', error.message);
+    }
+  }
 
 // Express.js route to handle registration
 app.post('/admin/signup', (req, res) => {
@@ -82,79 +90,16 @@ app.post('/admin/signup', (req, res) => {
     addAdminToFirestore(req.body, res);
 });
 
-
-
-
-
-
-async function signInAdmin(adminData, res) {
-    try {
-        // Validate adminData
-        console.log('Admin data:', adminData);
-        if (!adminData || !adminData.email || !adminData.password) {
-            res.status(400).send('Invalid input data');
-            return;
-        }
-
-        // Attempt to sign in the user with email and password
-        let user;
-        try {
-            user = await firebaseAuth.signInWithEmailAndPassword(
-                adminData.email,
-                adminData.password
-            );
-        } catch (error) {
-            // Handle authentication errors
-            if (error.code === 'auth/user-not-found') {
-                res.status(404).send({ message: 'User not found' });
-                return;
-            } else if (error.code === 'auth/wrong-password') {
-                res.status(401).send({ message: 'Incorrect password' });
-                return;
-            } else if (error.code === 'auth/invalid-email') {
-                res.status(400).send({ message: 'Invalid email format' });
-                return;
-            }
-            // Handle other potential errors
-            throw error;
-        }
-
-        // Fetch the user data from Firestore (if needed)
-        const adminDoc = await admin.firestore().collection('admins').doc(user.user.uid).get();
-        if (!adminDoc.exists) {
-            res.status(404).send({ message: 'Admin data not found' });
-            return;
-        }
-
-        // Send success response
-        res.status(200).send({ message: 'Sign-in successful', uid: user.user.uid });
-    } catch (error) {
-        // Handle and log other errors
-        console.error('Error signing in admin:', error);
-        res.status(500).send('Error signing in admin');
-    }
-}
-
-// Express.js route to handle sign-in
+// Express.js route to handle signin
 app.post('/admin/signin', (req, res) => {
-    console.log('Received request body:', req.body);
-    if (!req.body) {
-        res.status(400).send('Request body is empty');
-        return;
-    }
-    signInAdmin(req.body, res);
+   loginUser(req.body.email, req.body.password);
 });
-
 
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
-
-
-
 
 
 
@@ -338,4 +283,3 @@ app.listen(PORT, () => {
 //         throw new Error('Error calculating total revenue');
 //     }
 // }
-

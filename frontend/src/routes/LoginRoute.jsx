@@ -34,8 +34,11 @@ const LoginRoute = () => {
                 <input type="password" value={password} onChange={handlePasswordChange} />
 
                 <button type="submit">Login</button>
-                <button type="submit" >SignUp</button>
             </form>
+            <p>
+                no account? 
+                signup!
+            </p>
         </div>
     );
 };

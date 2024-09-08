@@ -1,7 +1,6 @@
 const express = require('express');
 require('dotenv').config();
 const admin = require('firebase-admin');
-const firebase = require('firebase-admin');
 const cors = require('cors');
 require('firebase/auth');
 
@@ -32,13 +31,16 @@ app.use(cors());
 app.use(express.json());
 
 // Initialize Firebase Auth
+const firebaseAuth = admin.auth();
+
+// Function to add admin to Firestore
 const firebaseAuth = firebase.auth();
 
 async function addAdminToFirestore(adminData, res) {
     try {
         // Validate adminData
         console.log('Admin data:', adminData);
-        if (!adminData || !adminData.email) {
+        if (!adminData || !adminData.email || !adminData.password) {
             res.status(400).send('Invalid input data');
             return;
         }
@@ -48,16 +50,26 @@ async function addAdminToFirestore(adminData, res) {
             email: adminData.email,
             password: adminData.password
         });
+        // Create a new user with email and password
+        let user = await firebaseAuth.createUser({
+            email: adminData.email,
+            password: adminData.password
+        });
 
         // Add the admin to Firestore
         await admin.firestore().collection('admins').doc(user.uid).set({
+            firstName: adminData.firstname,
+            lastName: adminData.lastname,
+            email: adminData.email,
+            phoneNumber: adminData.phonenumber
             email: adminData.email
         });
         await initializeUserSubcollections(user.uid);
 
         // Send success response
-        res.status(200).send({ message: 'Admin data saved successfully', uid: user.uid });
+        res.status(200).send('Admin data saved successfully');
     } catch (error) {
+        // Handle and log errors
         // Handle and log errors
         console.error('Error saving admin data:', error);
         res.status(500).send('Error saving admin data');
@@ -83,10 +95,12 @@ async function loginUser(email, password) {
 // Express.js route to handle registration
 app.post('/admin/signup', (req, res) => {
     console.log('Received request body:', req.body);
+    // Ensure the request body is not empty before processing
     if (!req.body) {
         res.status(400).send('Request body is empty');
         return;
     }
+    // Add admin to Firestore
     addAdminToFirestore(req.body, res);
 });
 

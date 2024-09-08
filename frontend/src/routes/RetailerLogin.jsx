@@ -19,11 +19,11 @@ export default function RetailerLogin(){
                                 <input type="text" className="w-full p-2 bg-gray-800 border border-gray-600 rounded" />
                             </div>
                             <div>
-                                <label className="block mb-2">Business Address</label>
+                                <label className="block mb-2">Email</label>
                                 <input type="text" className="w-full p-2 bg-gray-800 border border-gray-600 rounded" />
                             </div>
                             <div>
-                                <label className="block mb-2">Adhaar Card Number</label>
+                                <label className="block mb-2">Password</label>
                                 <input type="text" className="w-full p-2 bg-gray-800 border border-gray-600 rounded" />
                             </div>
                             <div>

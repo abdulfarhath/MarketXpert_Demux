@@ -13,6 +13,9 @@ import RetailerLogin from './routes/RetailerLogin'
 import RetailerLogin2 from './routes/RetailerLogin2'
 import RetailDRoute from './routes/RetailDRoute'
 import RetailPRoute from './routes/RetailPRoute'
+import UserDashBoard from './routes/UserDashboard'
+import AdminLogin from './routes/AdminLogin'
+import FashionDashboard from './routes/FashionDashboard'
 function App() {
 
 
@@ -25,12 +28,14 @@ function App() {
         <Route path="/pricing" element={<PricingRoute />} />
         <Route path="/contact" element={<ContactRoute />} />
         <Route path="/about" element={<AboutRoute />} />
-        <Route path="/user/login" element={<UserLogin />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/user/login" element={<userLogin/>} />
         <Route path="/retailer/login" element={<RetailerLogin />} />
         <Route path="/retailer/login2" element={<RetailerLogin2 />} />
         <Route path="/retailer/dashboard" element={<RetailDRoute/>} />
         <Route path="/retailer/products" element={<RetailPRoute/>} />
-        
+        <Route path="/user/dashboard" element={<UserDashBoard/>} />
+        <Route path="/user/categories/fashion" element={<FashionDashboard/>} />
       </Routes>
     </Router>
   )
